@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Gogo 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html, body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden; /* 🔒 NO SCROLL */
+  font-family: Arial, sans-serif;
+  background:linear-gradient(135deg,#ffe6f0,#fff6e5);
+  color:#444;
+}
+
+/* COMMON SCREEN STYLE */
+.screen{
+  width:100%;
+  height:100%;
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+/* SHOW ACTIVE SCREEN */
+.screen.active{
+  display:flex;
+}
+
+/* ELEMENTS */
+input{
+  padding:12px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  text-align:center;
+}
+
+button{
+  background:#ff5c8a;
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:25px;
+  cursor:pointer;
+  margin:10px;
+  font-size:1rem;
+  box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+
+img{
+  width:90%;
+  max-width:300px;
+  border-radius:20px;
+  margin:20px 0;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.typing{
+  color:#ff6f91;
+  font-size:1.2rem;
+  min-height:30px;
+}
+
+.no{
+  background:#cdb4db;
+  position:absolute;
+}
+
+.response{
+  color:#ff5c8a;
+  font-size:1.1rem;
+}
+
+/* HEART ANIMATION */
+@keyframes fall{
+  to{transform:translateY(100vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔒 LOCK SCREEN -->
+<div id="lockScreen" class="screen active">
+  <h2>🔒 Only Gogo can enter 💗</h2>
+  <input type="password" id="pass" placeholder="Enter password">
+  <button onclick="unlock()">Unlock</button>
+  <p style="font-size:0.9rem;color:#777;">Hint: MeraRamalai</p>
+</div>
+
+<!-- 💗 MAIN SCREEN -->
+<div id="mainScreen" class="screen">
+  <div class="typing" id="typing"></div>
+  <h1>I’m Sorry, Gogo 🥺</h1>
+
+  <img src="gogo.jpeg" alt="Us together">
+
+  <p>
+    I know I messed up… and I truly regret hurting you.<br>
+    You matter to me more than my ego.
+  </p>
+
+  <p><b>Can you forgive me?</b></p>
+
+  <button onclick="yes()">Yes 💗</button>
+  <button onclick="maybe()">Maybe 🥺</button>
+  <button class="no" id="noBtn">No 😔</button>
+
+  <p class="response" id="response"></p>
+</div>
+
+<!-- 🌸 FINAL SCREEN -->
+<div id="finalScreen" class="screen">
+  <h1>Thank you for forgiving me 💗</h1>
+  <p>
+    I promise to value this chance<br>
+    and take better care of us 🫶
+  </p>
+  <p style="font-size:0.95rem;color:#777;">
+    <i>The day we chose us</i><br>
+    2nd April 2025
+  </p>
+  <button onclick="closePage()">Close 🌸</button>
+</div>
+
+<script>
+/* SCREEN SWITCHER */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* UNLOCK */
+function unlock(){
+  if(document.getElementById("pass").value==="MeraRamalai"){
+    showScreen("mainScreen");
+    type();
+  } else {
+    alert("Wrong password 😔 Only Gogo knows it");
+  }
+}
+
+/* TYPING EFFECT */
+const text="Gogo… please read this till the end 💗";
+let i=0;
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,80);
+  }
+}
+
+/* HEART RAIN */
+function heartRain(){
+  for(let i=0;i<25;i++){
+    const h=document.createElement("div");
+    h.innerHTML="💗";
+    h.style.position="fixed";
+    h.style.left=Math.random()*100+"%";
+    h.style.top="-20px";
+    h.style.fontSize="24px";
+    h.style.animation="fall 3s linear";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  }
+}
+
+/* BUTTON ACTIONS */
+function yes(){
+  document.getElementById("response").innerText="Thank you… 💕";
+  heartRain();
+  setTimeout(()=>showScreen("finalScreen"),2000);
+}
+
+function maybe(){
+  document.getElementById("response").innerText="I’ll wait… 🫶";
+}
+
+/* NO BUTTON ESCAPES 😭 */
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseover=()=>{
+  noBtn.style.left=Math.random()*80+"%";
+  noBtn.style.top=Math.random()*80+"%";
+};
+
+/* CLOSE */
+function closePage(){
+  window.close();
+}
+</script>
+
+</body>
+</html>
